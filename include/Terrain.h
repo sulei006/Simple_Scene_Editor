@@ -36,7 +36,7 @@ public:
 			return;
 		
 		//fread(HighMap, 1, all_size, fptr);
-		for (int i = 0; i < all_size; i++)//´Ómatlabµ¼³öµÄ»Ò¶ÈtxtÎÄ¼ş¶ÁÈë¸ß¶ÈÍ¼
+		for (int i = 0; i < all_size; i++)//ä»matlabå¯¼å‡ºçš„ç°åº¦txtæ–‡ä»¶è¯»å…¥é«˜åº¦å›¾
 		{
 			fscanf(fptr, "%f,", &HighMap[i]);
 		}
@@ -53,19 +53,19 @@ public:
 		float y = 0;
 		if (px >= 0 && pz >= 0)
 			y = HighMap[x + (z * MAP_SIZE)];
-		return y/100+3; ///                              
+		return y/5; ///                              
 	}
 
 	void getNormal(glm::vec3 p1, glm::vec3 p2, glm::vec3 p3, glm::vec3 &result) {
 		const GLfloat l1[] = { p2[0] - p1[0], p2[1] - p1[1], p2[2] - p1[2] };
 		const GLfloat l2[] = { p3[0] - p1[0], p3[1] - p1[1], p3[2] - p1[2] };
-		//²æ³ËÇó·¨ÏòÁ¿
+		//å‰ä¹˜æ±‚æ³•å‘é‡
 		GLfloat n[] = {
 				l1[1] * l2[2] - l1[2] * l2[1],
 				l1[2] * l2[0] - l1[0] * l2[2],
 				l1[0] * l2[1] - l1[1] * l2[0]
 		};
-		//¹éÒ»»¯
+		//å½’ä¸€åŒ–
 		GLfloat abs = sqrt(n[0] * n[0] + n[1] * n[1] + n[2] * n[2]);
 		n[0] /= abs;
 		n[1] /= abs;
@@ -76,7 +76,7 @@ public:
 		result.z = n[2] / 2;
 	}
 
-	void putinVN(float HighMap[])//½«¶¥µãĞÅÏ¢(ºÍÆ½Ãæ·¨ÏòÁ¿)·ÅÈëÏòÁ¿
+	void putinVN(float HighMap[])//å°†é¡¶ç‚¹ä¿¡æ¯(å’Œå¹³é¢æ³•å‘é‡)æ”¾å…¥å‘é‡
 	{
 		int i, j,count=0;
 		for (i = 0; i < (MAP_SIZE - 1); i++)
@@ -112,7 +112,7 @@ public:
 				getNormal(p4, p3, p2, nor);
 				Plant plant2(p4, p3, p2, nor);
 				plants.push_back(plant2);
-				//×¢ÒâÕâÀïµÃµ½µÄÊÇÆ½Ãæ·¨ÏòÁ¿£¬ÎÒÃÇĞèÒªµÄÊÇ¶¥µã·¨ÏòÁ¿
+				//æ³¨æ„è¿™é‡Œå¾—åˆ°çš„æ˜¯å¹³é¢æ³•å‘é‡ï¼Œæˆ‘ä»¬éœ€è¦çš„æ˜¯é¡¶ç‚¹æ³•å‘é‡
 				vertics.push_back(p1);
 				vertics.push_back(p2);
 				vertics.push_back(p3);
@@ -143,7 +143,7 @@ public:
 		result[2] = z / l;
 	}
 
-	void putinPointNormal(float HighMap[])//½«¶¥µã·¨ÏòÁ¿Åª½øÈ¥
+	void putinPointNormal(float HighMap[])//å°†é¡¶ç‚¹æ³•å‘é‡å¼„è¿›å»
 	{
 		glm::vec3 p1,p2,p3,p4,p5,p6,p7;
 		glm::vec3 nor1, nor2, nor3, nor4, nor5, nor6,nor_res;
@@ -157,7 +157,7 @@ public:
 				p1.z = LEFT + i * STEP_SIZE;
 				p1.y = getHeight(HighMap, j, i);
 
-				//·Ç×îºóÒ»ÁĞ²ÅÓĞ
+				//éæœ€åä¸€åˆ—æ‰æœ‰
 				if (j != (MAP_SIZE - 1))
 				{				
 					p2.x = BACK + (j + 1) * STEP_SIZE;
@@ -165,7 +165,7 @@ public:
 					p2.y = getHeight(HighMap, j + 1, i);
 				}
 				
-				//·Ç×îÍ·ĞĞ×îºóÒ»ÁĞ²ÅÓĞ
+				//éæœ€å¤´è¡Œæœ€åä¸€åˆ—æ‰æœ‰
 				if (i != 0 && j != (MAP_SIZE - 1))
 				{
 					p3.x = BACK + (j + 1) * STEP_SIZE;
@@ -174,7 +174,7 @@ public:
 				}
 				
 
-				//·Ç×îÍ·ĞĞ²ÅÓĞ
+				//éæœ€å¤´è¡Œæ‰æœ‰
 				if (i != 0)
 				{
 					p4.x = BACK + j * STEP_SIZE;
@@ -182,7 +182,7 @@ public:
 					p4.y = getHeight(HighMap, j, i - 1);
 				}
 				
-				//·ÇµÚÒ»ÁĞ²ÅÓĞ
+				//éç¬¬ä¸€åˆ—æ‰æœ‰
 				if (j != 0)
 				{
 					p5.x = BACK + (j - 1) * STEP_SIZE;
@@ -191,7 +191,7 @@ public:
 				}
 				
 
-				//·ÇµÚÒ»ÁĞ¡¢×îºóÒ»ĞĞ ²ÅÓĞ
+				//éç¬¬ä¸€åˆ—ã€æœ€åä¸€è¡Œ æ‰æœ‰
 				if (i != (MAP_SIZE - 1) && j != 0)
 				{
 					p6.x = BACK + (j - 1) * STEP_SIZE;
@@ -200,7 +200,7 @@ public:
 				}
 				
 
-				//·Ç×îºóÒ»ĞĞ²ÅÓĞ
+				//éæœ€åä¸€è¡Œæ‰æœ‰
 				if (i != (MAP_SIZE - 1))
 				{
 					p7.x = BACK + j * STEP_SIZE;
@@ -209,7 +209,7 @@ public:
 				}
 				
 				nor1 = nor2 = nor3 = nor4 = nor5 = nor6 = glm::vec3(0, 0, 0);
-				//·ÖÀà¼ÆËã·¨ÏòÁ¿
+				//åˆ†ç±»è®¡ç®—æ³•å‘é‡
 				if (i == 0)
 				{
 					if (j == 0)
@@ -315,7 +315,7 @@ public:
 
 	}
 
-	//ÇóµØĞÎÍ¼½»µã
+	//æ±‚åœ°å½¢å›¾äº¤ç‚¹
 	float getAnyPlaceHeight(float HighMap[],glm::vec3 in_po)
 	{
 		if (in_po.x <BACK || in_po.x>BACK + MAP_SIZE * STEP_SIZE || in_po.z<LEFT || in_po.z>LEFT + MAP_SIZE * STEP_SIZE)return -1;
@@ -338,7 +338,7 @@ public:
 		float alpha, beta, gama,fa,fb,fc;
 		fa = getHeight(HighMap, cloest_x, cloest_z+1);
 		fc = getHeight(HighMap, cloest_x+1, cloest_z);
-		if (del_x < del_z)//Èı½ÇĞÎÖØĞÄ×ø±ê²åÖµµÃµ½ÈÎÒâµã¸ß¶È
+		if (del_x < del_z)//ä¸‰è§’å½¢é‡å¿ƒåæ ‡æ’å€¼å¾—åˆ°ä»»æ„ç‚¹é«˜åº¦
 		{
 			alpha = (-(in_po.x - zs.x) * (ys.y - zs.y) + (in_po.z - zs.y) * (ys.x - zs.x)) / (-(zx.x - zs.x) * (ys.y - zs.y) + (zx.y - zs.y) * (ys.x - zs.x));
 			beta = (-(in_po.x - ys.x) * (zx.y - ys.y) + (in_po.z - ys.y) * (zx.x - ys.x)) / (-(zs.x - ys.x) * (zx.y - ys.y) + (zs.y - ys.y) * (zx.x - ys.x));
@@ -403,10 +403,10 @@ public:
 	float STEP_SIZE;
 	float BACK, LEFT;
 	std::vector<int> vertics_index;
-	std::vector < glm::vec3 > vertics;//¶¥µãĞÅÏ¢
-	std::vector < glm::vec3 > normals;//·¨ÏòÁ¿
-	std::vector < glm::vec2 > texCoords;//ÌùÍ¼
-	std::vector < Plant > plants;//Íø¸ñÆ½Ãæ
+	std::vector < glm::vec3 > vertics;//é¡¶ç‚¹ä¿¡æ¯
+	std::vector < glm::vec3 > normals;//æ³•å‘é‡
+	std::vector < glm::vec2 > texCoords;//è´´å›¾
+	std::vector < Plant > plants;//ç½‘æ ¼å¹³é¢
 };
 
 
