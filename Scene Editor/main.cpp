@@ -14,10 +14,10 @@
 #include<glm/glm/gtc/matrix_transform.hpp>
 #include<glm/glm/gtc/type_ptr.hpp>
 
-//µØĞÎÍ¼
+//åœ°å½¢å›¾
 #include"Terrain.h"
 #include<vector>
-#define MAX_MAP 1000
+#define MAX_MAP 1025
 
 
 #define STB_IMAGE_IMPLEMENTATION
@@ -49,12 +49,12 @@ GLfloat lastFrame = 0.0f;
 float mixValue = 0.1f;
 
 
-//µØĞÎÍ¼ÉùÃ÷
+//åœ°å½¢å›¾å£°æ˜
 glm::vec2 bl(-50, -50);
-float HighMap[MAX_MAP * MAX_MAP];//µØĞÎÍ¼ÓÃµÄÍø¸ñĞÅÏ¢
-Terrain ourTerrain("../assets/terrain/high.txt", HighMap, MAX_MAP, 0.1, bl);//¹¹ÔìµØĞÎÍ¼Àà
+float HighMap[MAX_MAP * MAX_MAP];//åœ°å½¢å›¾ç”¨çš„ç½‘æ ¼ä¿¡æ¯
+Terrain ourTerrain("../assets/terrain/high.txt", HighMap, MAX_MAP, 0.1, bl);//æ„é€ åœ°å½¢å›¾ç±»
 
-GLuint loadCubemap(vector<const GLchar*> faces);//Õâ¸öÊÇ¸ãÁ¢·½ÌåÌùÍ¼µÄ
+GLuint loadCubemap(vector<const GLchar*> faces);//è¿™ä¸ªæ˜¯æç«‹æ–¹ä½“è´´å›¾çš„
 
 //model
 ModelUnit model1;
@@ -151,7 +151,7 @@ int main()
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
 	glViewport(0, 0, WIDTH, HEIGHT);
-	//stbi_set_flip_vertically_on_load(true);Õâ¸öÏÈ²»ÄÜÓÃ£¬ÒòÎª°üÎ§ºĞÔÚÍâ²¿
+	//stbi_set_flip_vertically_on_load(true);è¿™ä¸ªå…ˆä¸èƒ½ç”¨ï¼Œå› ä¸ºåŒ…å›´ç›’åœ¨å¤–éƒ¨
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 
@@ -160,7 +160,7 @@ int main()
 	Shader skyboxshader("../assets/shader/3.3.skyboxshader.vs", "../assets/shader/3.3.skyboxshader.fs");
 	Shader highshader("../assets/shader/3.3.highshade.vs", "../assets/shader/3.3.highshade.fs");
 
-	//µØĞÎÍ¼´¦Àí
+	//åœ°å½¢å›¾å¤„ç†
 	ourTerrain.putinVN(HighMap);
 	ourTerrain.putinPointNormal(HighMap);
 	float* highVertices = ourTerrain.mergeVN();
@@ -210,7 +210,7 @@ int main()
 		 1.0f, -1.0f,  1.0f
 	};
 
-	//Setup µØĞÎÍ¼
+	//Setup åœ°å½¢å›¾
 	GLuint highVAO, highVBO;
 	glGenVertexArrays(1, &highVAO);
 	glGenBuffers(1, &highVBO);
@@ -271,10 +271,10 @@ int main()
 
 
 	//Model
-	//Model ourModel1((GLchar*)"C:/Users/15474/Desktop/Ä£ĞÍ/9186/¹·¹·/Pug/pug.obj");
-	//Model ourModel1((GLchar*)"C:/Users/15474/Desktop/¼ÆÍ¼´úÂë/glssk/glssk/webmodel/model_gitar/backpack.obj");
-	//Model ourModel1((GLchar*)"C:/Users/15474/Desktop/Ä£ĞÍ/nanosuit.obj");
-	//Model ourModel1((GLchar*)"C:/Users/15474/Desktop/Ä£ĞÍ/9186/Garen.obj");
+	//Model ourModel1((GLchar*)"C:/Users/15474/Desktop/æ¨¡å‹/9186/ç‹—ç‹—/Pug/pug.obj");
+	//Model ourModel1((GLchar*)"C:/Users/15474/Desktop/è®¡å›¾ä»£ç /glssk/glssk/webmodel/model_gitar/backpack.obj");
+	//Model ourModel1((GLchar*)"C:/Users/15474/Desktop/æ¨¡å‹/nanosuit.obj");
+	//Model ourModel1((GLchar*)"C:/Users/15474/Desktop/æ¨¡å‹/9186/Garen.obj");
 
 	//thread  pget(&ModelsRender::getModelFromUser,&modelsRender);
 	//end
@@ -323,7 +323,7 @@ int main()
 		view = camera.GetViewMatrix();  //glm::mat4(glm::mat3(camera.GetViewMatrix()));
 		glm::mat4 model;
 		//projection = glm::perspective(camera.Zoom, (float)WIDTH / (float)HEIGHT, 0.1f, 100.0f);
-		//phong¹âÕÕÃ÷
+		//phongå…‰ç…§æ˜
 		GLint objectColorLoc = glGetUniformLocation(highshader.ID, "objectColor");
 		GLint lightColorLoc = glGetUniformLocation(highshader.ID, "lightColor");
 		GLint lightPosLoc = glGetUniformLocation(highshader.ID, "lightPos");
@@ -368,7 +368,7 @@ int main()
 // -Y (bottom)
 // +Z (front) 
 // -Z (back)
-GLuint loadCubemap(vector<const GLchar*> faces)//Õâ¸öÊÇ¸ãÁ¢·½ÌåÌùÍ¼µÄ
+GLuint loadCubemap(vector<const GLchar*> faces)//è¿™ä¸ªæ˜¯æç«‹æ–¹ä½“è´´å›¾çš„
 {
 	GLuint textureID;
 	glGenTextures(1, &textureID);
@@ -425,7 +425,7 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods_
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
 	{
 		mouse_button_left_pressed = 1;
-		//Êó±ê×ó¼ü°´ÏÂ£¬¿ªÊ¼¼ì²â½»µã²¢·ÅÖÃÄ£ĞÍ
+		//é¼ æ ‡å·¦é”®æŒ‰ä¸‹ï¼Œå¼€å§‹æ£€æµ‹äº¤ç‚¹å¹¶æ”¾ç½®æ¨¡å‹
 		//string path;
 		glm::vec3 be = camera.Position;
 		glm::vec3 dir = camera.Front;
